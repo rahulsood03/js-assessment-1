@@ -16,8 +16,10 @@ describe('functions', function() {
 
   it('you should be able to use an array as arguments when calling a function', function() {
     var result = functionsAnswers.argsAsArray(sayIt, [ 'Hello', 'Ellie', '!' ]);
+      return sayIt.apply(this, result);
     expect(result).to.eql('Hello, Ellie!');
     expect(sayItCalled).to.be.ok;
+      
   });
 
   it('you should be able to change the context in which a function is called', function() {
@@ -30,13 +32,19 @@ describe('functions', function() {
     };
 
     var result = functionsAnswers.speak(speak, obj);
+      return speak.call(obj);
     expect(result).to.eql('Hello, Rebecca!!!');
     expect(sayItCalled).to.be.ok;
   });
 
   it('you should be able to return a function from a function', function() {
+      var concatFn = function(suffix) {
+          return prefix + ',' + suffix;
+      };
+            return concatFn;
     expect(functionsAnswers.functionFunction('Hello')('world')).to.eql('Hello, world');
     expect(functionsAnswers.functionFunction('Hai')('can i haz funxtion?')).to.eql('Hai, can i haz funxtion?');
+          
   });
 
   it('you should be able to use closures', function () {

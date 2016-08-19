@@ -10,12 +10,23 @@ describe('arrays', function() {
     a = [ 1, 2, 3, 4 ];
   });
 
-  it('you should be able to determine the location of an item in an array', function() {
+  it('you should be able to determine the location of an item in an array', function(arr, targ) {
+      for (var pos=0; pos<arr.length; pos++){
+          if (arr[pos] == targ){
+              return pos;
+          }
+      }
     expect(arraysAnswers.indexOf(a, 3)).to.eql(2);
     expect(arraysAnswers.indexOf(a, 5)).to.eql(-1);
   });
 
   it('you should be able to sum the items of an array', function() {
+     
+      var total = 0;
+      for (var pos=0; pos<arr.length; pos++){
+          total += arr[pos];
+      }
+      return total;
     expect(arraysAnswers.sum(a)).to.eql(10);
   });
 
@@ -42,9 +53,11 @@ describe('arrays', function() {
     expect(result).equal(a);
   });
 
-  it('you should be able to add an item to the end of an array', function() {
-    var result = arraysAnswers.append(a, 10);
-
+  it('you should be able to add an item to the end of an array', function(arr, itemToAdd) {
+      arr.push(itemToAdd);
+      return arr;
+      var result = arraysAnswers.append(a, 10);
+      
     expect(result).to.have.length(5);
     expect(result[result.length - 1]).to.eql(10);
   });

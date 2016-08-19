@@ -4,7 +4,7 @@ if ( typeof window === 'undefined' ) {
 }
 
 describe('async behavior', function() {
-  it('you should understand how to use promises to handle asynchronicity', function(done) {
+  it('you should understand how to use promises to handle asynchronicity', function() {
     var flag = false;
     var finished = 0;
     var total = 2;
@@ -12,6 +12,12 @@ describe('async behavior', function() {
     function finish(_done) {
       if (++finished === total) { _done(); }
     }
+      
+    var dfd = $.Deferred();
+    var timeoutID = window.setTimeout(function(){
+        dfd.resolve(true);
+    }, 1000);
+    return dfd.promise();
 
     asyncAnswers.async(true).then(function(result) {
       flag = result;
@@ -24,11 +30,11 @@ describe('async behavior', function() {
       expect(flag).to.eql('success');
       finish(done);
     });
-
+      
     expect(flag).to.eql(false);
   });
 
-  it('you should be able to retrieve data from the server and return a sorted array of names', function(done) {
+  it('you should be able to retrieve data from the server and return a sorted array of names', function() {
     var url = '/data/testdata.json';
 
     asyncAnswers.manipulateRemoteData(url).then(function(result) {
